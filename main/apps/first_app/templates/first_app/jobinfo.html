@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .info{
+        border: 1px solid black;
+        width: 300px;
+    }
+</style>
+<body>
+        <a href="/dashboard">Back</a>
+        <a href="/logout">Log Out</a>
+    <div class = 'info'>
+        {% if jobs %}
+        {% for jobs in jobs %}
+        <h2>{{jobs.title}}</h2> 
+        <p>Job Description: {{jobs.desc}}</p>
+        <p>Job Location: {{jobs.location}}</p>
+        <p>Posted by: {{jobs.user.first_name}}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>

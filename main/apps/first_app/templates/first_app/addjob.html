@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .addjob{
+        border: 1px solid black;
+        width: 300px;
+        display: inline-block;
+    }
+    .buttons{
+        display: inline-block;
+        vertical-align: top;
+    }
+</style>
+<body>
+    <h3>Add A Job:</h3>
+    <div class = 'addjob'>
+        <form action = '/addprocess' method = 'post'>
+        {% csrf_token %} 
+        
+        {% if messages%} {% for message in messages %}
+        <ul>
+            <li>{{message}}</li>
+        </ul>
+        {% endfor %} {% endif %}
+
+        Title:
+        <input type='text' name='title'> <br>
+        Description:
+        <div class="form-group">
+                <textarea name = 'desc' class="form-control" rows="5" ></textarea>
+              </div>
+        Location:
+        <input type='text' name='location'><br>
+
+         <input type="submit" value = "Submit">
+    </form>
+    </div>
+
+    <div class = 'buttons'>
+    <form action='/logout' method='post'>
+
+        {% csrf_token %}
+        <input type='submit' name='logout' value='Log Out'>
+    </form>
+    <a href = '/dashboard'>Back</a>
+</div>
+</body>
+</html>

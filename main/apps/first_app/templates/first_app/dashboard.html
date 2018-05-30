@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<style>
+    .myJobs{
+        border: 1px solid black;
+        height: 200px;
+        width: 200px;
+        margin-left: 750px;
+    }
+    .adding{
+        margin-left: 800px;
+    }
+    .bold{
+        
+        color: red;
+    }
+
+</style>
+<body>
+    <div class='container'>
+        <div class = 'adding'>
+            <h4><a href="/add"> - Add A Job - </a></h4>
+
+            <form action = '/logout'>
+                {% csrf_token %}
+                    <input type = 'submit' name = 'logout' value = 'Log Out'></button>
+                </form>
+            </div>
+        <h3>Welcome, {{users.first_name}}!</h3>
+        <div class='allJobs'>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Job</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <!-- this pulls from the context 'users' that is within the index method. (check views file) -->
+                            {% if jobs %}
+                            {% for job in jobs %}
+                            <tr>
+                                <th scope="row">{{job.title}}</th>
+                                <td>{{job.location}}</td>
+                                <td>{{job.desc}}</td>
+                                <td><a href="/view/{{job.id}}">View</a> 
+                                    <a href="/add">add</a>
+                                    {% if job.user.id == request.session.id %}
+                <form action="/edit/{{job.id}}" method="POST">
+                    {% csrf_token %}
+                    <a href = '/edit/{{job.id}}'>Edit</a>
+                </form>
+                <form action="/done/{{job.id}}" method="POST">
+                    {% csrf_token %}
+                    <a href = '/done/{{job.id}}'>cancel</a>
+                </form>
+                 {% endif %} 
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </tbody>
+
+                        <div class = 'myJobs'>
+                            <h4>My Jobs:</h4>
+                            <div class = 'job'>
+                                    {% for job in this_user_job %}
+                                    <p>{{job}}</p>
+                                    <p class = 'bold'>{{job.title}}</p>
+                                    <a href="/view/{{job.id}}">View</a>   
+                                    <a href="/done/{{job.id}}">Done</a>
+                                    {% endfor %}
+                                    </div> 
+                    
+                                
+                                  
+                            </div>
+                        </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
